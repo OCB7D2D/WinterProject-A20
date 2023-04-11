@@ -1,2 +1,3 @@
 # WinterProject-A20
-Winter Project A20 Test Edition
+This is only a fork to test a few CI/CD things.
+Go To https://github.com/SphereII/WinterProject-A20
