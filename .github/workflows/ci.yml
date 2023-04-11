@@ -1,0 +1,28 @@
+name: Release WinterProject
+
+on:
+  push:
+    tags:
+      - "v?[0-9]+.[0-9]+.[0-9]+"
+
+jobs:
+
+  release:
+    runs-on: windows-latest
+    name: Windows MSVC build
+
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v2
+    - name: Compress archive(s)
+      shell: cmd
+      run: 7z a -tzip -mx5 -v2000m WinterProject-A20-${{ github.ref_name }}.zip README.md ./Mods/ WinterProject.xml
+    - name: Create github release
+      uses: "marvinpinto/action-automatic-releases@v1.2.1"
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        prerelease: false
+        draft: true
+        files: |
+          ./WinterProject-A20-*.zip*
+      id: "automatic_releases"
